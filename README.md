@@ -55,15 +55,19 @@ Vagrantを用いて、ubuntu18.04(bionic64)における動作確認を行なっ�
     ```
 
 ### 実行について
+1. ダウンロード
+    ```sh
+    % git clone git@github.com:yoshi65/csv2png.git
+    ```
 1. エンドポイント作成
-```sh
-% cd ./sample
-% sam local start-api
-```
+    ```sh
+    % cd ./csv2png
+    % sam local start-api
+    ```
 1. csvファイルをPOSTして、レスポンスを受け取る
-```sh
-% curl -H "Accept: image/png" -H "Content-Type: text/csv" --data-binary "@test.csv" -X POST http://127.0.0.1:3000/src -o test.png
-```
+    ```sh
+    % curl -H "Accept: image/png" -H "Content-Type: text/csv" --data-binary "@test.csv" -X POST http://127.0.0.1:3000/src -o test.png
+    ```
 
 ### 補足
 1. デスクトップ画面を出力
