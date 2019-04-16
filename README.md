@@ -1,4 +1,4 @@
-# sample
+# csv2png
 
 ## SETTING
 1. dockerのインストール
@@ -29,6 +29,7 @@ Vagrantを用いて、ubuntu18.04(bionic64)における動作確認を行なっ�
     ```sh
     % sudo apt-get update
     % sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common gcc
+
     % curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     % sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable test edge"
     % sudo apt-get update
@@ -52,6 +53,10 @@ Vagrantを用いて、ubuntu18.04(bionic64)における動作確認を行なっ�
 1. awsの初期設定
     ```sh
     % aws configure
+    AWS Access Key ID: 
+    AWS Secret Access Key:
+    Default region name: ap-northeast-1
+    Default output format:
     ```
 
 ### 実行について
@@ -67,6 +72,7 @@ Vagrantを用いて、ubuntu18.04(bionic64)における動作確認を行なっ�
 1. csvファイルをPOSTして、レスポンスを受け取る
     ```sh
     % curl -H "Accept: image/png" -H "Content-Type: text/csv" --data-binary "@test.csv" -X POST http://127.0.0.1:3000/src -o test.png
+    % open test.png
     ```
 
 ### 補足
