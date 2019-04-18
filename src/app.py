@@ -6,14 +6,10 @@ import boto3
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# import requests
-
 print('Loading function')
 
-s3 = boto3.resource('s3')
 
-
-class be_yoshi:
+class csv2png:
     def __init__(self):
         self.csv_data = None
         self.image = None
@@ -52,15 +48,15 @@ def lambda_handler(event, context):
         }
 
     # constacter
-    by = be_yoshi()
+    cp = csv2png()
     # read csv format data
-    by.read_data(body=request_body)
+    cp.read_data(body=request_body)
     # draw graph
-    by.draw_graph()
+    cp.draw_graph()
 
     return {
         "statusCode": 200,
-        "body": by.response(),
+        "body": cp.response(),
         "headers": {
             'Content-Type': 'image/png'
         },
