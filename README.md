@@ -22,36 +22,26 @@
     ```sh
     % docker build -t test_image .
     ```
-1. run docker
+1. run docker for making endpoint
     ```sh
     % AWS_ACCESS_KEY_ID=""
     % AWS_SECRET_ACCESS_KEY=""
     % AWS_DEFAULT_REGION="ap-northeast-1"
     % docker run -it --rm --privileged \
         -v /var/lib/docker \
+        --hostname test_container \
+        --name test_container \
         -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
         -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
         -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION \
-        test_image /bin/bash
-    ```
-1. make endpoint
-    ```sh
-    # export LC_ALL=C.UTF-8
-    # export LANG=C.UTF-8
-    # service docker start
-    # git clone https://github.com/yoshi65/csv2png
-    # cd ./csv2png
-    # sam build
-    # sam local start-api
+        test_image
     ```
 1. post csv file
     ```sh
-    % docker exec -it ${CONTAINER ID} /bin/bash
-    # cd ./csv2png
-    # curl -H "Accept: image/png" -H "Content-Type: text/csv" --data-binary "@test.csv" -X POST http://127.0.0.1:3000/src -o test.png
+    % docker exec -it test_container curl -H "Accept: image/png" -H "Content-Type: text/csv" --data-binary "@/csv2png/test.csv" -X POST http://127.0.0.1:3000/src -o test.png
     ```
 1. copy png file in host and open png file
     ```sh
-    % docker cp ${CONTAINER ID}:/csv2png/test.png .
+    % docker cp test_container:/test.png .
     % open test.png
     ```

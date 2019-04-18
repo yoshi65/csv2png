@@ -11,3 +11,11 @@ RUN apt-get update && \
     pip install --upgrade pip && \
     apt install -y python3-dev && \
     pip install awscli aws-sam-cli 
+
+CMD export LC_ALL=C.UTF-8 && \
+    export LANG=C.UTF-8 && \
+    service docker start && \
+    git clone https://github.com/yoshi65/csv2png && \
+    cd ./csv2png && \
+    sam build && \
+    sam local start-api
