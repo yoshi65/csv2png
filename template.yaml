@@ -17,11 +17,11 @@ Resources:
   LambdaFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: src/
+      CodeUri: src/build/
       Handler: app.lambda_handler
       Runtime: python3.6
       Events:
-        be-yoshi:
+        csv2png:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /src
