@@ -1,0 +1,25 @@
+FROM ubuntu:18.04
+
+RUN apt update && \
+    apt install -y apt-transport-https ca-certificates curl software-properties-common gcc git && \
+    # curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+    # add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable test edge" && \
+    # apt-get install -y docker-ce && \
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+    apt install -y python3-distutils && \
+    python3 get-pip.py && \
+    pip install --upgrade pip && \
+    apt install -y python3-dev && \
+    pip install awscli aws-sam-cli 
+
+CMD export LC_ALL=C.UTF-8 && \
+    export LANG=C.UTF-8 && \
+    # service docker start && \
+    git clone https://github.com/yoshi65/csv2png && \
+    cd ./csv2png && \
+    # sam build && \
+    # sam local start-api
+    pip install -r ./src/requirements.txt -t ./src/build && \
+    cp ./src/__init__.py ./src/app.py ./src/build && \
+    sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket ${bucket_name} && \
+    sam deploy --template-file packaged.yaml --stack-name csv2png --capabilities CAPABILITY_IAM --region ${AWS_DEFAULT_REGION}

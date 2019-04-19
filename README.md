@@ -17,16 +17,45 @@
     Default output format:
     ```
 
+## How to deploy
+1. build docker image
+    ```sh
+    % docker build -t deploy_image -f Dockerfile_deploy .
+    ```
+1. deploy
+    ```sh
+    % AWS_ACCESS_KEY_ID="${your_access_key_id}"
+    % AWS_SECRET_ACCESS_KEY="${your_secret_access_key_id}"
+    % AWS_DEFAULT_REGION="${your_region}"
+    % bucket_name="${your_bucket_name}"
+    % docker run -it --rm --privileged \
+        -v /var/lib/docker \
+        -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+        -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+        -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION \
+        -e bucket_name=$bucket_name \
+        deploy_image
+    ```
+1. get endpoint
+    ```sh
+    % aws cloudformation describe-stacks --stack-name csv2png --query 'Stacks[].Outputs' | grep https | sed "s/.*\"\(https.*\)\".*/\1/"
+    https://xxxxxxxx.execute-api.xxxxxxxx.amazonaws.com/Prod/src
+    ```
+1. test
+    ```sh
+    % curl -H "Accept: image/png" -H "Content-Type: text/csv" --data-binary "@test.csv" -X POST ${endpoint} -o test.png
+    ```
+
 ## Test in ubuntu18.04 on Docker
 1. build docker image
     ```sh
-    % docker build -t test_image .
+    % docker build -t test_image -f Dockerfile_test .
     ```
 1. run docker for making endpoint
     ```sh
     % AWS_ACCESS_KEY_ID=""
     % AWS_SECRET_ACCESS_KEY=""
-    % AWS_DEFAULT_REGION="ap-northeast-1"
+    % AWS_DEFAULT_REGION="${your_region}"
     % docker run -it --rm --privileged \
         -v /var/lib/docker \
         --hostname test_container \
