@@ -74,3 +74,10 @@
     % docker cp test_container:/test.png .
     % open test.png
     ```
+
+## Dependencies
+* docker
+* python3.6
+* pip
+* aws-sam-cli
+* boto3
