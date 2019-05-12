@@ -24,16 +24,12 @@
     ```
 1. deploy
     ```sh
-    % AWS_ACCESS_KEY_ID="${your_access_key_id}"
-    % AWS_SECRET_ACCESS_KEY="${your_secret_access_key_id}"
-    % AWS_DEFAULT_REGION="${your_region}"
-    % bucket_name="${your_bucket_name}"
     % docker run -it --rm --privileged \
         -v /var/lib/docker \
-        -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-        -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-        -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION \
-        -e bucket_name=$bucket_name \
+        -e AWS_ACCESS_KEY_ID=`grep "aws_access_key_id" ~/.aws/credentials | awk '{print $3}'` \
+        -e AWS_SECRET_ACCESS_KEY=`grep "aws_secret_access_key" ~/.aws/credentials | awk '{print $3}'` \
+        -e AWS_DEFAULT_REGION=`grep "region" ~/.aws/config | awk '{print $3}'` \
+        -e bucket_name=${your_bucket_name} \
         deploy_image
     ```
 1. get endpoint
