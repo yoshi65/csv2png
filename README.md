@@ -49,16 +49,13 @@
     ```
 1. run docker for making endpoint
     ```sh
-    % AWS_ACCESS_KEY_ID=""
-    % AWS_SECRET_ACCESS_KEY=""
-    % AWS_DEFAULT_REGION="${your_region}"
     % docker run -it --rm --privileged \
         -v /var/lib/docker \
         --hostname test_container \
         --name test_container \
-        -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-        -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-        -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION \
+        -e AWS_ACCESS_KEY_ID="" \
+        -e AWS_SECRET_ACCESS_KEY="" \
+        -e AWS_DEFAULT_REGION=`grep "region" ~/.aws/config | awk '{print $3}'` \
         test_image
     ```
 1. post csv file
