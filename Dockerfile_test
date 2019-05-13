@@ -17,5 +17,7 @@ CMD export LC_ALL=C.UTF-8 && \
     service docker start && \
     git clone https://github.com/yoshi65/csv2png && \
     cd ./csv2png && \
+    pip install -r ./src/requirements.txt -t ./src/build && \
+    cp ./src/requirements.txt ./src/__init__.py ./src/app.py ./src/build && \
     sam build && \
     sam local start-api
