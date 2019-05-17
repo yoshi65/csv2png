@@ -34,8 +34,7 @@
     ```
 1. get endpoint
     ```sh
-    % aws cloudformation describe-stacks --stack-name csv2png --query 'Stacks[].Outputs' | grep https | sed "s/.*\"\(https.*\)\".*/\1/"
-    https://xxxxxxxx.execute-api.xxxxxxxx.amazonaws.com/Prod/src
+    % endpoint=`aws cloudformation describe-stacks --stack-name csv2png --query 'Stacks[].Outputs' | jq -r '.[0][2].OutputValue'
     ```
 1. test
     ```sh
