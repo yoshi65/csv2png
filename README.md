@@ -1,21 +1,6 @@
 # csv2png
-
-## SETTING
-1. dockerのインストール
-1. python3.6のインストール
-1. pipのインストール
-1. aws-sam-cliのインストール
-    ```sh
-    % pip install awscli aws-sam-cli
-    ```
-1. awsの初期設定
-    ```sh
-    % aws configure
-    AWS Access Key ID: 
-    AWS Secret Access Key:
-    Default region name: ap-northeast-1
-    Default output format:
-    ```
+Translate CSV format data to PNG format graph, using aws sam.
+In this repository, provide environment of test in local, and deploy on mac OS using docker container.
 
 ## How to deploy
 1. build docker image
@@ -71,5 +56,13 @@
 * docker
 * python3.6
 * pip
-* aws-sam-cli
 * boto3
+* aws-sam-cli
+    ```sh
+    % pip install awscli aws-sam-cli
+    % aws configure
+    AWS Access Key ID: 
+    AWS Secret Access Key:
+    Default region name: ap-northeast-1
+    Default output format:
+    ```
